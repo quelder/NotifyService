@@ -1,7 +1,8 @@
-# Laravel Telegram Notification Bot
+Laravel Telegram Notification Bot
+-------------------------
 Сервис уведомлений, который получает задачи из внешнего API и отправляет их пользователям через Telegram-бота.
-### Стек технологий
-* Laravel 12
+### Стек
+* Laravel 12 + PHP 8.2
 * MySQL 
 * Telegram Bot API
 * Laravel Queues
@@ -10,9 +11,14 @@
 * Ngrok
 * Swagger
 * PHPUnit
-
-## Бысткий старт (Docker)
-### Отредактируйте .env:
+-------------------------
+## Начало
+1. Качаем проект
+2. Подготавливаем .env
+```
+cp .env.example .env
+```
+3. Редактируем .env:
 ```
   APP_URL=http://localhost:8000
   DB_HOST=db
@@ -21,7 +27,7 @@
   DB_PASSWORD=root
   TELEGRAM_BOT_TOKEN=your_telegram_token
 ```
-### Запустите проект:
+4. Запуск проекта:
 ```
 docker-compose up --build
 ```
@@ -32,7 +38,7 @@ docker-compose up --build
 *  Публикацию и генерацию Swagger-документации
 *  Запуск очереди (queue:work --daemon)
 *  Запуск HTTP-сервера
-
+-------------------------
 ### Настройка Telegram
 1. Создайте бота через @BotFather и получите токен.
 2. Убедитесь, что Laravel работает по http://localhost:8000.
@@ -50,7 +56,7 @@ docker-compose up --build
 *  /start — подписывает пользователя и сохраняет его telegram_id
 *  /stop — отписывает пользователя от уведомлений
 
-
+-------------------------
 ## Логика рассылки задач
     docker-compose exec app php artisan notify:tasks
 
@@ -65,7 +71,7 @@ Laravel автоматически запускает `queue:work --daemon` пр
     ``` 
     docker-compose exec app php artisan queue:work
     ```
-
+-------------------------
 ### Тестирование
 ```
 docker-compose exec app php artisan test --env=testing
@@ -76,18 +82,19 @@ docker-compose exec app php artisan test --env=testing
 *  Отписку через /stop
 *  Обработку неизвестных команд
 *  Проверку хранения Telegram ID
-
+-------------------------
 ## Важные переменные окружения .env
 ```
  QUEUE_CONNECTION=database
  TELEGRAM_BOT_TOKEN=your_telegram_bot_token
  DEV_CHAT_ID=your_dev_chat_id
 ```
-
+-------------------------
 ## Swagger-документация
 Документация API доступна по адресу:
-http://localhost:8000/api/documentation
-
+* http://localhost:8000/swagger
+* http://localhost:8000/api/documentation
+-------------------------
 ### Пример Webhook-запроса
 ```
 {
@@ -106,3 +113,4 @@ http://localhost:8000/api/documentation
 - fugiat veniam minus
   ...
 ```
+-------------------------
