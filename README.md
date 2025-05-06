@@ -62,15 +62,17 @@ docker-compose up --build
 
 Команда:
 *  Загружает задачи с https://jsonplaceholder.typicode.com/todos
-*  Фильтрует: completed = false, userId <= 5
-*  Отправляет их активным подписчикам (subscribed = true) через очередь
+*  Фильтрует: `completed = false, userId <= 5`
+*  Отправляет их активным подписчикам (`subscribed = true`) через очередь
 
 ### Очереди
-Laravel автоматически запускает `queue:work --daemon` при старте контейнера.
-Для ручного запуска/отладки:
-    ``` 
+
+Laravel автоматически запускает ```queue:work --daemon``` при старте контейнера.
+Для ручного запуска/отладки: 
+``` 
     docker-compose exec app php artisan queue:work
-    ```
+```
+
 -------------------------
 ### Тестирование
 ```
