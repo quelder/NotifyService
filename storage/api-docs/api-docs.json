@@ -1,0 +1,144 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Notification Service API",
+        "description": "This API handles Telegram webhook messages, supporting commands like /start and /stop.",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8000",
+            "description": "Local Development Server"
+        },
+        {
+            "url": "/api"
+        }
+    ],
+    "paths": {
+        "/api/webhook": {
+            "post": {
+                "tags": [
+                    "Telegram Webhook"
+                ],
+                "summary": "Receive Telegram webhook messages",
+                "description": "Processes messages from Telegram and handles /start and /stop commands.",
+                "operationId": "handleTelegramWebhook",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "message"
+                                ],
+                                "properties": {
+                                    "message": {
+                                        "properties": {
+                                            "message_id": {
+                                                "type": "integer",
+                                                "example": 12345
+                                            },
+                                            "from": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 67890
+                                                    },
+                                                    "is_bot": {
+                                                        "type": "boolean",
+                                                        "example": false
+                                                    },
+                                                    "first_name": {
+                                                        "type": "string",
+                                                        "example": "John"
+                                                    },
+                                                    "username": {
+                                                        "type": "string",
+                                                        "example": "john_doe"
+                                                    },
+                                                    "language_code": {
+                                                        "type": "string",
+                                                        "example": "en"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "chat": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 12345678
+                                                    },
+                                                    "type": {
+                                                        "type": "string",
+                                                        "example": "private"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "date": {
+                                                "type": "integer",
+                                                "example": 1672531199
+                                            },
+                                            "text": {
+                                                "type": "string",
+                                                "example": "/start"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Webhook processed successfully"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "TelegramCommandHandler": {
+                "title": "Telegram Command Handler",
+                "description": "Handles Telegram commands from users, such as /start and /stop. Updates user information and sends appropriate notifications."
+            },
+            "TelegramService": {
+                "title": "Telegram Service",
+                "description": "Service for sending messages to Telegram via Bot API"
+            }
+        },
+        "parameters": {
+            "text": {
+                "name": "text",
+                "in": "query",
+                "description": "Processing of the Telegram text command.",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "message": {
+                "name": "message",
+                "in": "query",
+                "required": true,
+                "schema": {
+                    "type": "object"
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Telegram Webhook",
+            "description": "Telegram Webhook"
+        }
+    ]
+}
