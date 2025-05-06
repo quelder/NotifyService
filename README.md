@@ -22,7 +22,7 @@
   TELEGRAM_BOT_TOKEN=your_telegram_token
 ```
 ### Запустите проект:
-`docker-compose up --build`
+```docker-compose up --build```
 
 При первом запуске Laravel выполнит:
 *  Ожидание MySQL
@@ -35,10 +35,14 @@
 1. Создайте бота через @BotFather и получите токен.
 2. Убедитесь, что Laravel работает по http://localhost:8000.
 3. Установите ngrok и запустите:
-`ngrok http 8000`
+    ```
+    ngrok http http://localhost:8080
+    ```
 4. Установите Webhook:
-`curl -X POST "https://api.telegram.org/bot<YOUR_TOKEN>/setWebhook" \
--d "url=https://<your-ngrok-url>/api/webhook"`
+    ```
+    curl -X POST "https://api.telegram.org/bot<YOUR_TOKEN>/setWebhook" \
+    -d "url=https://<your-ngrok-url>/api/webhook"
+    ```
 
 ### Команды Telegram
 *  /start — подписывает пользователя и сохраняет его telegram_id
@@ -46,7 +50,7 @@
 
 
 ## Логика рассылки задач
-`docker-compose exec app php artisan notify:tasks`
+    docker-compose exec app php artisan notify:tasks
 
 Команда:
 *  Загружает задачи с https://jsonplaceholder.typicode.com/todos
@@ -57,11 +61,13 @@
 Laravel автоматически запускает `queue:work --daemon` при старте контейнера.
 Для ручного запуска/отладки:
 
-`docker-compose exec app php artisan queue:work`
+    ``` 
+    docker-compose exec app php artisan queue:work
+    ```
 
 ### Тестирование
 
-`docker-compose exec app php artisan test`
+`docker-compose exec app php artisan test --env=testing`
 
 Тесты включают:
 *  Подписку через /start

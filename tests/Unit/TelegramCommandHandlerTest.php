@@ -15,6 +15,7 @@ class TelegramCommandHandlerTest extends TestCase
 
     public function testStartCommandCreatesOrUpdatesUserAndSendsMessage()
     {
+
         Http::fake(); // заглушка внешнего запроса
 
         $service = new TelegramService();
@@ -32,7 +33,7 @@ class TelegramCommandHandlerTest extends TestCase
         ]);
 
         Http::assertSent(fn ($request) =>
-            $request->url() === "https://api.telegram.org/bot" . config('services.telegram.bot_token') . "/sendMessage" &&
+            $request->url() === "https://api.telegram.org/bot" . config(['services.telegram.bot_token' => 'fake-token']) . "/sendMessage" &&
             $request['chat_id'] == 123456 &&
             str_contains($request['text'], 'подписаны')
         );

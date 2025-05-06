@@ -11,6 +11,14 @@ until mysqladmin ping -h"$DB_HOST" --silent; do
 done
 
 
+if [ ! -d "vendor" ]; then
+  if [ "$APP_ENV" != "production" ]; then
+    composer install
+  else
+    composer install --no-dev --optimize-autoloader
+  fi
+fi
+
 # Выполняем команды artisan
 echo "Running migrations..."
 php artisan migrate
