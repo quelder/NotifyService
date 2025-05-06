@@ -22,7 +22,9 @@
   TELEGRAM_BOT_TOKEN=your_telegram_token
 ```
 ### Запустите проект:
-```docker-compose up --build```
+```
+docker-compose up --build
+```
 
 При первом запуске Laravel выполнит:
 *  Ожидание MySQL
@@ -60,14 +62,14 @@
 ### Очереди
 Laravel автоматически запускает `queue:work --daemon` при старте контейнера.
 Для ручного запуска/отладки:
-
     ``` 
     docker-compose exec app php artisan queue:work
     ```
 
 ### Тестирование
-
-`docker-compose exec app php artisan test --env=testing`
+```
+docker-compose exec app php artisan test --env=testing
+```
 
 Тесты включают:
 *  Подписку через /start
